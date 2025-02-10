@@ -2,7 +2,7 @@ name: TPP-MLIR Base Tests
 
 on:
   workflow_dispatch:
-  pull_request:
+  # pull_request:
 
 jobs:
   TPP-MLIR-gcc-rel:
