@@ -25,7 +25,7 @@ jobs:
   TPP-MLIR-EMR-BASE:
     runs-on: ubuntu-latest
     if: |
-      (${{ github.event_name }} == "push") ||
+      # (${{ github.event_name }} == "push") ||
       (${{ github.event_name }} == "workflow_dispath" && ${{ inputs.RUN_EMR_BENCH }}) ||
       (${{ github.event_name }} == "pull_request" && ${{ contains(github.event.pull_request.labels.*.name, 'benchmark') }})
     steps:
