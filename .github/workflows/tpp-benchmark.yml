@@ -5,13 +5,16 @@ on:
     inputs:
       RUN_EMR_BENCH:
         description: "Run on Emerald Rapids"
-        default: "0"
+        type: boolean
+        default: true
       RUN_ZEN_BENCH:
         description: "Run on Zen5"
-        default: "1"
+        type: boolean
+        default: false
       RUN_CLX_BENCH:
         description: "Run on CLX"
-        default: "0"
+        type: boolean
+        default: false
   pull_request:
     types: [ labeled ]
 
@@ -19,7 +22,7 @@ jobs:
   TPP-MLIR-EMR-BASE:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_EMR_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_EMR_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark' }}) || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
@@ -33,7 +36,7 @@ jobs:
   TPP-MLIR-EMR-OMP:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_EMR_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_EMR_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark' }}) || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
@@ -47,7 +50,7 @@ jobs:
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_ZEN_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_ZEN_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
       - uses: actions/checkout@v4
@@ -60,7 +63,7 @@ jobs:
   TPP-MLIR-ZEN-OMP:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_ZEN_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_ZEN_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
       - uses: actions/checkout@v4
@@ -73,7 +76,7 @@ jobs:
   TPP-MLIR-CLX-BASE:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_CLX_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_CLX_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +89,7 @@ jobs:
   TPP-MLIR-CLX-OMP:
     runs-on: ubuntu-latest
     if: ${{ github.event_name }} == "push" || \
-        ${{ github.event.inputs.RUN_CLX_BENCH }} == "1" || \
+        ${{ github.event.inputs.RUN_CLX_BENCH }} || \
         (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
     steps:
       - uses: actions/checkout@v4
