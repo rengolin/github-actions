@@ -61,10 +61,10 @@ jobs:
           fi
 
   TPP-MLIR-CLX-BASE:
-    runs-on: ubuntu-latest
     if: (${{ github.event_name }} == "workflow_dispath" && ${{ inputs.RUN_ZEN_BENCH }})
       # (${{ github.event_name }} == "push") ||
       # (${{ github.event_name }} == "pull_request" && ${{ contains(github.event.pull_request.labels.*.name, 'benchmark') }})
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: CLX Base
