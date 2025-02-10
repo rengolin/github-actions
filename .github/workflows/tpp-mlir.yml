@@ -2,12 +2,11 @@ name: TPP-MLIR Base Tests
 
 on:
   workflow_dispatch:
-  push:
   pull_request:
 
 jobs:
   TPP-MLIR-gcc-rel:
-    runs-on: latest-ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: GCC Release
@@ -16,7 +15,7 @@ jobs:
           echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
 
   TPP-MLIR-gcc-deb:
-    runs-on: latest-ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: GCC Debug
@@ -25,7 +24,7 @@ jobs:
           echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
 
   TPP-MLIR-clang-rel:
-    runs-on: latest-ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Clang Release
@@ -34,7 +33,7 @@ jobs:
           echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
 
   TPP-MLIR-clang-deb:
-    runs-on: latest-ubuntu
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Clang Debug Sanitizers
