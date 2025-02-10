@@ -44,7 +44,7 @@ jobs:
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
     if: |
-      ${{ false }}
+      false 
     steps:
       - uses: actions/checkout@v4
       - name: Zen5 Base
