@@ -5,94 +5,76 @@ on:
     inputs:
       RUN_EMR_BENCH:
         description: "Run on Emerald Rapids"
-        default: "0"
+        type: boolean
+        default: true
       RUN_ZEN_BENCH:
         description: "Run on Zen5"
-        default: "0"
+        type: boolean
+        default: false
       RUN_CLX_BENCH:
         description: "Run on CLX"
-        default: "0"
+        type: boolean
+        default: false
+  push:
+    branches:
+      - 'main'
   pull_request:
-    types: [ labeled ]
+    types: [ labeled, opened, reopened, edited ]
 
 jobs:
   TPP-MLIR-EMR-BASE:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_EMR_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark' }}) || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
+    if: |
+      (${{ github.event_name }} == "push") ||
+      (${{ github.event_name }} == "workflow_dispath" && ${{ inputs.RUN_EMR_BENCH }}) ||
+      (${{ github.event_name }} == "pull_request" && ${{ contains(github.event.pull_request.labels.*.name, 'benchmark') }})
     steps:
       - uses: actions/checkout@v4
       - name: Emerald Rapids Base
         run: |-
           echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
-
-  TPP-MLIR-EMR-OMP:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_EMR_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark' }}) || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
-    steps:
-      - uses: actions/checkout@v4
-      - name: Emerald Rapids OpenMP
-        run: |-
-          echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
-
+          if [ ${{ github.event_name }} == "pull_request" ]; then
+            echo "Event Label: ${{ github.event.label.name }}"
+            echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
+          fi
+          if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
+            echo "RUN_EMR_BENCH: ${{ inputs.RUN_EMR_BENCH }}"
+          fi
+  
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_ZEN_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
+    if: |
+      (${{ github.event_name }} == "push") ||
+      (${{ github.event_name }} == "workflow_dispath" && ${{ inputs.RUN_ZEN_BENCH }}) ||
+      (${{ github.event_name }} == "pull_request" && ${{ contains(github.event.pull_request.labels.*.name, 'benchmark') }})
     steps:
       - uses: actions/checkout@v4
       - name: Zen5 Base
         run: |-
           echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
-
-  TPP-MLIR-ZEN-OMP:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_ZEN_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
-    steps:
-      - uses: actions/checkout@v4
-      - name: Zen5 OpenMP
-        run: |-
-          echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
+          if [ ${{ github.event_name }} == "pull_request" ]; then
+            echo "Event Label: ${{ github.event.label.name }}"
+            echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
+          fi
+          if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
+            echo "RUN_EMR_BENCH: ${{ inputs.RUN_ZEN_BENCH }}"
+          fi
 
   TPP-MLIR-CLX-BASE:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_CLX_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
+    if: |
+      (${{ github.event_name }} == "push") ||
+      (${{ github.event_name }} == "workflow_dispath" && ${{ inputs.RUN_ZEN_BENCH }}) ||
+      (${{ github.event_name }} == "pull_request" && ${{ contains(github.event.pull_request.labels.*.name, 'benchmark') }})
     steps:
       - uses: actions/checkout@v4
       - name: CLX Base
         run: |-
           echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
-
-  TPP-MLIR-CLX-OMP:
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name }} == "push" || \
-        ${{ inputs.RUN_CLX_BENCH }} == 1 || \
-        (${{ github.event_name }} == "pull_request" && ${{ github.event.label.name == 'benchmark-all' }})
-    steps:
-      - uses: actions/checkout@v4
-      - name: CLX OpenMP
-        run: |-
-          echo "Event Name: ${{ github.event_name }}"
-          echo "Event Label: ${{ github.event.label.name }}"
-          echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
-        
+          if [ ${{ github.event_name }} == "pull_request" ]; then
+            echo "Event Label: ${{ github.event.label.name }}"
+            echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
+          fi
+          if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
+            echo "RUN_EMR_BENCH: ${{ inputs.RUN_CLX_BENCH }}"
+          fi
