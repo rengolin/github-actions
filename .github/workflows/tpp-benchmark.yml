@@ -44,9 +44,7 @@ jobs:
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
     if: |
-      ${{github.event_name == 'push' || 
-        (github.event_name == 'workflow_dispatch' && inputs.RUN_ZEN_BENCH) ||
-        (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
+      ${{(github.event_name == 'workflow_dispatch' && inputs.RUN_ZEN_BENCH) }}
     steps:
       - uses: actions/checkout@v4
       - name: Zen5 Base
