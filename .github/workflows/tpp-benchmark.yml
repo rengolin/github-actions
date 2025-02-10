@@ -15,9 +15,9 @@ on:
         description: "Run on CLX"
         type: boolean
         default: false
-  # push:
-  #   branches:
-  #     - 'main'
+  push:
+    branches:
+      - 'main'
   pull_request:
     types: [ labeled, opened, reopened, edited ]
 
