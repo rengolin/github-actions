@@ -57,7 +57,7 @@ jobs:
             echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
           fi
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
-            echo "RUN_EMR_BENCH: ${{ inputs.RUN_ZEN_BENCH }}"
+            echo "RUN_ZEN_BENCH: ${{ inputs.RUN_ZEN_BENCH }}"
           fi
 
   TPP-MLIR-CLX-BASE:
@@ -76,5 +76,5 @@ jobs:
             echo "PR Labels: ${{ toJSON(github.event.pull_request.labels.*.name) }}"
           fi
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
-            echo "RUN_EMR_BENCH: ${{ inputs.RUN_CLX_BENCH }}"
+            echo "RUN_CLX_BENCH: ${{ inputs.RUN_CLX_BENCH }}"
           fi
