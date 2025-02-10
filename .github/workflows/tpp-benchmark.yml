@@ -8,7 +8,7 @@ on:
         default: "0"
       RUN_ZEN_BENCH:
         description: "Run on Zen5"
-        default: "0"
+        default: "1"
       RUN_CLX_BENCH:
         description: "Run on CLX"
         default: "0"
