@@ -67,7 +67,7 @@ jobs:
     #   ${{github.event_name == 'push' || 
     #     (github.event_name == 'workflow_dispath' && inputs.RUN_CLX_BENCH) ||
     #     (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
-    if: ${{ (github.event_name == 'workflow_dispath') && inputs.RUN_CLX_BENCH }}
+    if: ${{ (github.event_name == 'workflow_dispath') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
