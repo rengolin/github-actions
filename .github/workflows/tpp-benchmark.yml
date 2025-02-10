@@ -40,6 +40,7 @@ jobs:
           if [ ${{ github.event_name }} == "workflow_dispatch" ]; then
             echo "RUN_EMR_BENCH: ${{ inputs.RUN_EMR_BENCH }}"
           fi
+          echo "Hi"
   
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
