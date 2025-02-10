@@ -28,7 +28,7 @@ jobs:
     #   ${{github.event_name == 'push' || 
     #     (github.event_name == 'workflow_dispath' && inputs.RUN_EMR_BENCH) ||
     #     (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
-    if: ${{ github.event_name == 'workflow_dispath' && inputs.RUN_EMR_BENCH }}
+    if: ${{ (github.event_name == 'workflow_dispath') && inputs.RUN_EMR_BENCH }}
     steps:
       - uses: actions/checkout@v4
       - name: Emerald Rapids Base
@@ -48,7 +48,7 @@ jobs:
     #   ${{github.event_name == 'push' || 
     #     (github.event_name == 'workflow_dispath' && inputs.RUN_ZEN_BENCH) ||
     #     (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
-    if: ${{ github.event_name == 'workflow_dispath' && inputs.RUN_ZEN_BENCH }}
+    if: ${{ (github.event_name == 'workflow_dispath') && inputs.RUN_ZEN_BENCH }}
     steps:
       - uses: actions/checkout@v4
       - name: Zen5 Base
@@ -67,7 +67,7 @@ jobs:
     #   ${{github.event_name == 'push' || 
     #     (github.event_name == 'workflow_dispath' && inputs.RUN_CLX_BENCH) ||
     #     (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
-    if: ${{ github.event_name == 'workflow_dispath' && inputs.RUN_CLX_BENCH }}
+    if: ${{ (github.event_name == 'workflow_dispath') && inputs.RUN_CLX_BENCH }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
