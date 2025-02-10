@@ -24,7 +24,7 @@ on:
 jobs:
   TPP-MLIR-EMR-BASE:
     runs-on: ubuntu-latest
-    if: |
+    if:
       ${{ github.event_name == 'push' || 
          (github.event_name == 'workflow_dispath' && inputs.RUN_EMR_BENCH) ||
          (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
@@ -43,8 +43,8 @@ jobs:
   
   TPP-MLIR-ZEN-BASE:
     runs-on: ubuntu-latest
-    if: |
-        ${{ github.event_name == 'push' || 
+    if:
+      ${{ github.event_name == 'push' || 
         (github.event_name == 'workflow_dispath' && inputs.RUN_ZEN_BENCH) ||
         (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
     steps:
@@ -62,7 +62,7 @@ jobs:
 
   TPP-MLIR-CLX-BASE:
     if:
-        ${{ github.event_name == 'push' || 
+      ${{ github.event_name == 'push' || 
         (github.event_name == 'workflow_dispath' && inputs.RUN_CLX_BENCH) ||
         (github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'benchmark')) }}
     runs-on: ubuntu-latest
